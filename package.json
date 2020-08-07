@@ -1,0 +1,30 @@
+{
+  "name": "deployvue",
+  "version": "0.0.1",
+  "description": "deploy vue project",
+  "bin": {
+    "deployvue": "bin/index.js"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "deploy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liuxy0551/deployvue"
+  },
+  "bugs": {
+    "url": "https://github.com/liuxy0551/deployvue/issues"
+  },
+  "homepage": "https://github.com/liuxy0551/deployvue#readme",
+  "author": "liuxy0551",
+  "license": "ISC"
+}
