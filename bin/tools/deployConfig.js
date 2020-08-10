@@ -1,4 +1,7 @@
-const deployConfig = require(`${ process.cwd() }/deploy.config.js`)
+const fs = require('fs')
+
+let exist = fs.existsSync(`${ process.cwd() }/deploy.config.js`)
+const deployConfig = require(exist ? `${ process.cwd() }/deploy.config.js` : `${ __dirname.split('bin/')[0] }/example/deploy.config.js`)
 
 module.exports = {
   // 项目名称

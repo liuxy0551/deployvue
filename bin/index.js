@@ -5,6 +5,8 @@ const packageJson = require('../package.json')
 
 // version
 program.version(packageJson.version, '-V, --version')
+// init
+program.command('init').description('init deploy.config.js').action(require('./actions/init'))
 // build
 program.command('build').description('build code').option('-e, --env <env>', 'environment', '').action(require('./actions/build'))
 // deploy

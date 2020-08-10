@@ -9,6 +9,9 @@ $ npm i deployvue -g
 # 查看版本
 $ deployvue -V / deployvue --version
 
+# 初始化项目的部署配置文件
+$ deployvue init
+
 # 打包项目代码
 $ deployvue build -e staging/production
 
