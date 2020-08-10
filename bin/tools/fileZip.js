@@ -14,7 +14,7 @@ module.exports = {
     // 通过管道方法将输出流存档到文件
     archive.pipe(output)
     // 把打包后的文件夹压缩
-    archive.directory(`${ process.cwd() }/${ deployConfig.archiveRootDir }`, `${ deployConfig.archiveRootDir }`)
+    archive.directory(`${ process.cwd() }/${ deployConfig.archiveRootDir }`, false)
 
     output.on('close', err => {
       if (err) {
@@ -34,6 +34,6 @@ module.exports = {
 
   // 上传压缩包到服务器
   async uploadFile () {
-    console.log('uploadFile')
+    console.log(111, 'uploadFile')
   }
 }

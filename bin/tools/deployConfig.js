@@ -1,7 +1,4 @@
-const fse = require('fs-extra')
-
-const deployConfigFilePath = `${ process.cwd() }/deploy.config.json`
-const deployConfig = fse.readJSONSync(deployConfigFilePath)
+const deployConfig = require(`${ process.cwd() }/deploy.config.js`)
 
 module.exports = {
   // 项目名称
@@ -10,6 +7,10 @@ module.exports = {
   deployTo: deployConfig['default']['deployTo'],
   // 服务器端保留的历史版本数，可用于回滚的版本数
   keepReleases: deployConfig['default']['keepReleases'],
-  // 打包后的文件夹
-  archiveRootDir: deployConfig['default']['archive']['rootDir']
+  // 打包后的文件夹，默认dist
+  archiveRootDir: deployConfig['default']['archive']['rootDir'] || 'dist',
+  // 测试服配置项
+  staging: deployConfig.staging,
+  // 正式服配置项
+  production: deployConfig.production
 }
