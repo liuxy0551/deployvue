@@ -1,9 +1,9 @@
-const fileZip = require('./fileZip')
+const file = require('./file')
 const deployConfig = require('./deployConfig')
 const SSHGroup = require('./SSHGroup')
 
 module.exports = {
-  fileZip,
+  file,
   deployConfig,
   SSHGroup
 }

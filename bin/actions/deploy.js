@@ -12,9 +12,9 @@ module.exports = async function (cmd) {
   }
 
   // 处理打包后的压缩包
-  await tools.fileZip.createZip()
+  await tools.file.createZip()
 
   // 连接服务器
-  let sshGroup = new tools.SSHGroup(tools.deployConfig[cmd.env]['servers'])
-  await sshGroup.connect()
+  // let sshGroup = new tools.SSHGroup(tools.deployConfig[cmd.env]['servers'])
+  // await sshGroup.connect()
 }

@@ -11,6 +11,7 @@ module.exports = {
       zlib: { level: 9 } // 压缩级别
     })
 
+    console.log(chalk.cyan(`==================== Start archiver ${ deployConfig.archiveRootDir }.zip ====================`))
     // 通过管道方法将输出流存档到文件
     archive.pipe(output)
     // 把打包后的文件夹压缩
@@ -20,9 +21,7 @@ module.exports = {
       if (err) {
         return console.log('关闭 archiver 异常：', err)
       }
-      console.log(chalk.green(`Create ${ deployConfig.archiveRootDir }.zip complete, ${ archive.pointer() } bytes.`))
-      // console.log(`开始上传 ${ deployConfig.archiveRootDir }.zip 到服务器`)
-      this.uploadFile()
+      console.log(chalk.green(`DONE  Create zip file complete. The ${ deployConfig.archiveRootDir }.zip has ${ archive.pointer() } bytes.`))
     })
     archive.on('error', err => {
       throw err
@@ -30,10 +29,5 @@ module.exports = {
 
     // 完成归档
     archive.finalize()
-  },
-
-  // 上传压缩包到服务器
-  async uploadFile () {
-    console.log(111, 'uploadFile')
   }
 }
