@@ -21,7 +21,7 @@ module.exports = async function (cmd) {
 
   // 依次执行安装依赖命令
   if (installCommands.length) {
-    console.log(`==================== Installation dependencies ====================\n`)
+    console.log(`==================== install dependencies ====================\n`)
     for (let command of installCommands) {
       console.log(`+ ${ command }`)
       if (shell.exec(`${ command }`).code !== 0) {
@@ -31,11 +31,11 @@ module.exports = async function (cmd) {
       }
       console.log(chalk.cyan(`DONE  ${ command } complete\n`))
     }
-    console.log(`==================== Installation complete ====================\n`)
+    console.log(`==================== install complete ====================\n`)
   }
 
   // 依次执行打包命令
-  console.log(`==================== Begin build ====================\n`)
+  console.log(`==================== start ====================\n`)
   for (let command of buildCommands) {
     console.log(`+ ${ command }`)
     if (shell.exec(`${ command }`).code !== 0) {
@@ -43,7 +43,7 @@ module.exports = async function (cmd) {
       shell.exit(1)
       return
     }
-    console.log(chalk.green(`DONE  ${ command } complete\n`))
+    // console.log(chalk.green(`DONE  ${ command } complete\n`))
   }
-  console.log(`==================== build complete ====================\n\n`)
+  // console.log(`==================== build complete ====================\n\n`)
 }

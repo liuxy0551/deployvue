@@ -9,7 +9,7 @@ module.exports = {
   // 项目中是否存在deploy.config.js
   checkDeployConfigExist: function () {
     if (!exist) {
-      console.log(chalk.red(`You are using deployvue without deploy.config.js. Please init. eg: deployvue init`))
+      console.log(chalk.red(`You are using deployvue without deploy.config.js. Please init. eg: deployvue init\n`))
       shell.exit(1) // 退出程序
       return
     }

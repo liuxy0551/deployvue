@@ -10,10 +10,10 @@ module.exports = async function () {
         if (err) {
           throw err
         }
-        console.log(chalk.green(`DONE  init success \n\n`))
+        console.log(chalk.green(`DONE  init success`))
       })
     })
   } else {
-    console.log(chalk.yellow(`Fail: deploy.config.js already exist \n\n`))
+    console.log(chalk.yellow(`Fail: deploy.config.js already exist`))
   }
 }

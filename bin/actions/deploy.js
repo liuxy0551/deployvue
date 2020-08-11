@@ -24,7 +24,7 @@ module.exports = async function (cmd) {
     return
   }
 
-  console.log(`==================== Start deploy ====================\n`)
+  // console.log(`==================== start deploy ====================\n`)
 
   // 压缩打包后的文件夹
   await tools.file.archiveFile()
@@ -39,6 +39,6 @@ module.exports = async function (cmd) {
   // 在服务器端解压压缩包
   await tools.file.unArchiveFile(sshGroup.connects)
 
-  console.log(`==================== deploy success, enjoy ====================`)
+  console.log(`==================== complete, enjoy ====================\n`)
   shell.exit(0)
 }

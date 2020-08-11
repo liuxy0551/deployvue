@@ -33,3 +33,14 @@ $ deployvue deploy -e staging / deployvue deploy
 # 清理本地打包临时文件
 $ deployvue clean
 ```
+
+
+### 建议
+执行 `deployvue init`，在 `package.json` 中新增一条命令，即可使用 `npm run deploy` 进行部署
+```
+// package.json
+
+"scripts": {
+  "deploy": "deployvue build && deployvue deploy && deployvue clean"
+}
+```
