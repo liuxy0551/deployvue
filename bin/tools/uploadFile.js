@@ -11,13 +11,13 @@ module.exports = {
 
     for (let server of deployConfig[env].servers) {
       let command = `scp ${ localFile } ${ server.username }@${ server.host }:${ deployTo }`
-      console.log(chalk.cyan(`+ ${ command }`))
+      console.log(chalk.cyan(`+ ${ command }\n`))
       if (shell.exec(`${ command }`).code !== 0) {
         shell.echo(`Run: ${ command } Error`)
         shell.exit(1)
         return
       }
-      console.log(chalk.green(`DONE  ${ command } complete`))
+      console.log(chalk.green(`DONE  ${ command } complete\n`))
     }
   }
 }
