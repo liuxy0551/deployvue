@@ -26,18 +26,22 @@ module.exports = async function (cmd) {
 
   // console.log(`==================== start deploy ====================\n`)
 
+  // 打包时间戳
+  const date = `${ new Date().getFullYear() }${ new Date().getMonth() + 1 }${ new Date().getDate() }${ new Date().getHours() }${ new Date().getMinutes() }${ new Date().getSeconds() }`
+  console.log(1, date)
+
   // 压缩打包后的文件夹
-  await tools.file.archiveFile()
+  await tools.file.archiveFile(date)
 
   // 连接服务器
   let sshGroup = new tools.SSHGroup(tools.deployConfig[env]['servers'])
   await sshGroup.connect()
 
   // scp 将打包后的压缩包上传到服务器指定路径
-  await tools.file.putFiles(sshGroup.connects, env)
+  await tools.file.putFiles(sshGroup.connects, env, date)
 
   // 在服务器端解压压缩包
-  await tools.file.unArchiveFile(sshGroup.connects)
+  await tools.file.unArchiveFile(sshGroup.connects, date)
 
   console.log(`==================== complete, enjoy ====================\n`)
   shell.exit(0)

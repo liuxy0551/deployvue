@@ -13,6 +13,8 @@ program.command('build').description('build code').option('-e, --env <env>', 'en
 program.command('deploy').description('deploy project').option('-e, --env <env>', 'environment', '').action(require('./actions/deploy'))
 // clean
 program.command('clean').description('clean build file').option('-e, --env <env>', 'environment', '').action(require('./actions/clean'))
+// rollback
+program.command('rollback').description('project rollback deploy').option('-e, --env <env>', 'environment', '').action(require('./actions/rollback'))
 
 // 解析参数这一行要放到定义的命令最后面
 program.parse(process.argv)
