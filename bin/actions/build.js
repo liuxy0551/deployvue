@@ -3,10 +3,14 @@ const shell = require('shelljs')
 const tools = require('../tools')
 
 module.exports = async function (cmd) {
-  // 检查配置文件中的部署环境
-  let deployEnv = tools.deployConfig[cmd.env]
-  if (!cmd.env || !deployEnv) {
-    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue build -e staging`))
+  // 检查是否有配置文件
+  tools.deployConfig.checkDeployConfigExist()
+
+  // 检查配置文件中的部署环境 - 默认production环境
+  let env = cmd.env || 'production'
+  let deployEnv = tools.deployConfig[env]
+  if (!deployEnv) {
+    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue build -e staging or deployvue build`))
     shell.exit(1) // 退出程序
     return
   }
@@ -17,27 +21,27 @@ module.exports = async function (cmd) {
 
   // 依次执行安装依赖命令
   if (installCommands.length) {
-    console.log(chalk.cyan(`==================== Installation dependencies ====================`))
+    console.log(chalk.cyan(`==================== Installation dependencies ====================\n`))
     for (let command of installCommands) {
-      console.log(chalk.cyan(command))
+      console.log(chalk.cyan(`+ ${ command }`))
       if (shell.exec(`${ command }`).code !== 0) {
         shell.echo(`Run: ${ command } Error`)
         shell.exit(1)
         return
       }
-      console.log(chalk.green(`${ command } complete\n`))
+      console.log(chalk.green(`DONE  ${ command } complete\n`))
     }
   }
 
   // 依次执行打包命令
-  console.log(chalk.cyan(`==================== Begin Build ====================`))
+  console.log(chalk.cyan(`==================== Begin Build ====================\n`))
   for (let command of buildCommands) {
-    console.log(chalk.cyan(command))
+    console.log(chalk.cyan(`+ ${ command }`))
     if (shell.exec(`${ command }`).code !== 0) {
       shell.echo(`Run: ${ command } Error`)
       shell.exit(1)
       return
     }
-    console.log(chalk.green(`${ command } complete`))
+    console.log(chalk.green(`DONE  ${ command } complete`))
   }
 }

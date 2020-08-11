@@ -1,11 +1,11 @@
 {
   "name": "deployvue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "deploy vue project",
   "bin": {
     "deployvue": "bin/index.js"
   },
-  "main": "index.js",
+  "main": "deployvue.js",
   "dependencies": {
     "archiver": "^5.0.0",
     "chalk": "^4.1.0",
