@@ -21,27 +21,29 @@ module.exports = async function (cmd) {
 
   // 依次执行安装依赖命令
   if (installCommands.length) {
-    console.log(chalk.cyan(`==================== Installation dependencies ====================\n`))
+    console.log(`==================== Installation dependencies ====================\n`)
     for (let command of installCommands) {
-      console.log(chalk.cyan(`+ ${ command }`))
+      console.log(`+ ${ command }`)
       if (shell.exec(`${ command }`).code !== 0) {
         shell.echo(`Run: ${ command } Error`)
         shell.exit(1)
         return
       }
-      console.log(chalk.green(`DONE  ${ command } complete\n`))
+      console.log(chalk.cyan(`DONE  ${ command } complete\n`))
     }
+    console.log(`==================== Installation complete ====================\n`)
   }
 
   // 依次执行打包命令
-  console.log(chalk.cyan(`==================== Begin Build ====================\n`))
+  console.log(`==================== Begin build ====================\n`)
   for (let command of buildCommands) {
-    console.log(chalk.cyan(`+ ${ command }`))
+    console.log(`+ ${ command }`)
     if (shell.exec(`${ command }`).code !== 0) {
       shell.echo(`Run: ${ command } Error`)
       shell.exit(1)
       return
     }
-    console.log(chalk.green(`DONE  ${ command } complete`))
+    console.log(chalk.green(`DONE  ${ command } complete\n`))
   }
+  console.log(`==================== build complete ====================\n`)
 }

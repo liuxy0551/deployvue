@@ -6,7 +6,7 @@ module.exports = async function () {
   // 检查是否有配置文件
   tools.deployConfig.checkDeployConfigExist()
   
-  console.log(chalk.cyan(`==================== Start clean ====================\n`))
+  console.log(`==================== Start clean ====================\n`)
 
   // 清理本地打包临时文件
   if (shell.exec(`rm -rf ${ tools.deployConfig.archiveRootDir }*`).code !== 0) {

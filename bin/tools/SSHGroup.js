@@ -13,10 +13,10 @@ module.exports = class SSHGroup {
   connect () {
     return new Promise((resolve, reject) => {
       for (let server of this.servers) {
-        console.log(chalk.cyan(`${ server.host } connecting ...`))
+        console.log(`${ server.host } connecting ...`)
         const ssh = new NodeSSH()
         ssh.connect(Object.assign({ privateKey: `${ homedir }/.ssh/id_rsa` }, server)).then(res => {
-          console.log(chalk.green(`${ server.host } connected.\n`))
+          console.log(chalk.cyan(`${ server.host } connected\n`))
           this.connects.push(ssh)
           if (this.connects.length === this.servers.length) {
             resolve(this.connects)
