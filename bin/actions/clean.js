@@ -16,5 +16,5 @@ module.exports = async function () {
   }
   console.log(chalk.green(`DONE  clean complete`))
   // console.log(chalk.green(`DONE  Delete ${ tools.deployConfig.archiveRootDir }`))
-  // console.log(chalk.green(`DONE  Delete ${ tools.deployConfig.archiveRootDir }.zip`))
+  // console.log(chalk.green(`DONE  Delete ${ tools.deployConfig.archiveRootDir }.tar`))
 }

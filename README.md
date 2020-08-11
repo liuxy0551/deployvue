@@ -21,3 +21,11 @@ $ deployvue deploy -e staging or deployvue deploy
 # 清理本地打包临时文件
 $ deployvue clean
 ```
+
+
+## 部署基本流程介绍
+1、执行 build 命令
+2、压缩打包后的文件夹
+3、scp 将打包后的压缩包上传到服务器指定路径
+4、ssh 连接服务器，远程解压压缩包
+5、删除本地的打包文件及压缩包，部署完成

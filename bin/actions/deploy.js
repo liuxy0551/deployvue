@@ -24,8 +24,11 @@ module.exports = async function (cmd) {
     return
   }
 
-  // 压缩打包后的文件夹为 zip
-  await tools.file.createZip()
+  // 压缩打包后的文件夹
+  await tools.file.createCompressFile()
+
+  // scp 将打包后的压缩包上传到服务器指定路径
+  await tools.uploadFile.putFiles(env)
 
   // 连接服务器
   // let sshGroup = new tools.SSHGroup(tools.deployConfig[cmd.env]['servers'])

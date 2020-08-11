@@ -24,4 +24,12 @@ module.exports = class SSHGroup {
       }
     })
   }
+
+  // 通过scp往服务器上推压缩包，文件 scp，目录 scp -r
+  async putFiles (localFile, remoteFile) {
+    for (let ssh of this.connects) {
+      console.log(chalk.yellow(`server ${ ssh.connection.config.host }: putFile ${remoteFile}`))
+      await ssh.putFiles([{ local: localFile, remote: remoteFile }])
+    }
+  }
 }

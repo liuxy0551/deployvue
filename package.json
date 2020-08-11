@@ -5,7 +5,7 @@
   "bin": {
     "deployvue": "bin/index.js"
   },
-  "main": "deployvue.js",
+  "main": "index.js",
   "dependencies": {
     "archiver": "^5.0.0",
     "chalk": "^4.1.0",
