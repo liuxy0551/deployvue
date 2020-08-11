@@ -39,6 +39,6 @@ module.exports = async function (cmd) {
   // 在服务器端解压压缩包
   await tools.file.unArchiveFile(sshGroup.connects)
 
-  console.log(`==================== deploy success ====================`)
+  console.log(`==================== deploy success, enjoy ====================`)
   shell.exit(0)
 }

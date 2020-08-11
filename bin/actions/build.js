@@ -45,5 +45,5 @@ module.exports = async function (cmd) {
     }
     console.log(chalk.green(`DONE  ${ command } complete\n`))
   }
-  console.log(`==================== build complete ====================\n`)
+  console.log(`==================== build complete ====================\n\n`)
 }
