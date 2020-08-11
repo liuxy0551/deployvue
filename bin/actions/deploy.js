@@ -25,12 +25,15 @@ module.exports = async function (cmd) {
   }
 
   // 压缩打包后的文件夹
-  await tools.file.createCompressFile()
-
-  // scp 将打包后的压缩包上传到服务器指定路径
-  await tools.uploadFile.putFiles(env)
+  await tools.file.archiveFile()
 
   // 连接服务器
-  // let sshGroup = new tools.SSHGroup(tools.deployConfig[cmd.env]['servers'])
-  // await sshGroup.connect()
+  let sshGroup = new tools.SSHGroup(tools.deployConfig[env]['servers'])
+  await sshGroup.connect()
+
+  // scp 将打包后的压缩包上传到服务器指定路径
+  await tools.file.putFiles(sshGroup.connects, env)
+
+  // 在服务器端解压压缩包
+  await tools.file.unArchiveFile(sshGroup.connects)
 }
