@@ -14,14 +14,21 @@ module.exports = async function (cmd) {
   await sshGroup.connect()
 
   for (let ssh of sshGroup.connects) {
-    await ssh.execCommand(`cd ${ tools.deployConfig.deployTo }/${ tools.deployConfig.archiveRootDir }-history; ls`).then(res => {
-      console.log(res)
-
-      // let list = res.stdout.split('\n').filter(i => i.includes(tools.deployConfig.archiveRootDir))
-      // let timeList = list.map(i => i.split('-')[2].split('.tar')[0])
-      // console.log(timeList.sort()[timeList.length - 2])
-      // console.log(list.filter(i => i.includes(Math.max(...timeList))))
-      // let time = ''
-    })
+    let res = await ssh.execCommand(`cd ${ tools.deployConfig.deployTo }/${ tools.deployConfig.archiveRootDir }-history; ls`)
+    let list = res.stdout.split('\n')
+    if (list.length >= 2) { // 有两次及以上的部署历史才有版本回退的意义
+      let previous = list[list.length - 2]
+      await ssh.execCommand(`cd ${ tools.deployConfig.deployTo }/${ tools.deployConfig.archiveRootDir }-history; mv ${ previous } ../; cd ..; tar xvf ${ previous }; rm -rf ${ previous }`)
+      console.log(chalk.green(`\nRollback success`))
+      shell.exit(0)
+    } else if (list.length && list[0]) { // 仅有一次，没有回退的意义
+      console.log(chalk.yellow(`\nThere is only one history in this server.`))
+      shell.exit(1) // 退出程序
+      break
+    } else {
+      console.log(chalk.yellow(`\nNo history file. Please deploy first.`))
+      shell.exit(1) // 退出程序
+      break
+    }
   }
 }

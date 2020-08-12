@@ -70,7 +70,7 @@ module.exports = {
     for (let ssh of connects) {
       console.log(`\n+ ${ unArchiveCommand }`)
       await ssh.execCommand(`cd ${ deployConfig.deployTo }; ${ unArchiveCommand }; mv ${ deployConfig.archiveRootDir }-${ date }.tar ${ deployConfig.archiveRootDir }-history`)
-      await ssh.execCommand(`cd ${ deployConfig.deployTo }/${ deployConfig.archiveRootDir }-history; ls -t | awk 'NR > ${ deployConfig.keepReleases } {print "rm -rf "$0}' | sh`)
+      await ssh.execCommand(`cd ${ deployConfig.deployTo }/${ deployConfig.archiveRootDir }-history; ls -t | awk 'NR > ${ deployConfig.keepReleases + 1 } {print "rm -rf "$0}' | sh`)
       console.log(chalk.cyan(`unArchive file success`))
     }
   }

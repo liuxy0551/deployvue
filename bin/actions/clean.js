@@ -12,5 +12,5 @@ module.exports = async function () {
     shell.exit(1)
     return
   }
-  // console.log(chalk.green(`DONE  temporary files clean complete`))
+  // console.log(chalk.cyan(`DONE  temporary files clean complete`))
 }
