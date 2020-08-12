@@ -8,7 +8,7 @@ module.exports = {
   // 压缩打包后的文件夹
   async archiveFile (date) {
     return new Promise((resolve, reject) => {
-      console.log(`archive ${ deployConfig.archiveRootDir }-${ date }.tar`)
+      console.log(`\narchive ${ deployConfig.archiveRootDir }-${ date }.tar`)
 
       const output = fs.createWriteStream(`${ process.cwd() }/${ deployConfig.archiveRootDir }-${ date }.tar`)
       const archive = archiver('tar', {

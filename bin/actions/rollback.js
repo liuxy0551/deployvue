@@ -7,16 +7,10 @@ module.exports = async function (cmd) {
   tools.deployConfig.checkDeployConfigExist()
 
   // 检查配置文件中的部署环境 - 默认production环境
-  let env = cmd.env || 'production'
-  let deployEnv = tools.deployConfig[env]
-  if (!deployEnv) {
-    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue rollback -e staging or deployvue rollback`))
-    shell.exit(1) // 退出程序
-    return
-  }
+  let deployEnv = tools.deployConfig.checkEnv(cmd, 'rollback')
 
   // 连接服务器
-  let sshGroup = new tools.SSHGroup(tools.deployConfig[env]['servers'])
+  let sshGroup = new tools.SSHGroup(deployEnv['servers'])
   await sshGroup.connect()
 
   for (let ssh of sshGroup.connects) {

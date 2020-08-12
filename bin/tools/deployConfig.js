@@ -14,6 +14,17 @@ module.exports = {
       return
     }
   },
+  // 检查配置文件中的部署环境 - 默认production环境
+  checkEnv (cmd, order) {
+    let env = cmd.env || 'production'
+    let deployEnv = deployConfig[env]
+    if (!deployEnv) {
+      console.log(chalk.red(`Please ensure your deploy.config.js env is effective. eg: deployvue ${ order } -e staging / deployvue ${ order } (-e production)`))
+      shell.exit(1) // 退出程序
+      return
+    }
+    return deployEnv
+  },
   // 部署到该路径
   deployTo: deployConfig['default']['deployTo'],
   // 服务器端保留的历史版本数，可用于回滚的版本数，默认5次

@@ -2,6 +2,7 @@ const fs = require('fs')
 const chalk = require('chalk');
 
 module.exports = async function () {
+  // 先判断是否已有配置文件
   let exist = fs.existsSync('deploy.config.js')
   if (!exist) {
     // 初始化项目的部署配置文件

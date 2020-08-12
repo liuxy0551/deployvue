@@ -9,12 +9,7 @@ module.exports = async function (cmd) {
 
   // 检查配置文件中的部署环境 - 默认production环境
   let env = cmd.env || 'production'
-  let deployEnv = tools.deployConfig[env]
-  if (!deployEnv) {
-    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue deploy -e staging or deployvue deploy`))
-    shell.exit(1) // 退出程序
-    return
-  }
+  let deployEnv = tools.deployConfig.checkEnv(cmd, 'staging')
 
   // 检查是否有打包后的文件夹
   let exist = fs.existsSync(`${ tools.deployConfig.archiveRootDir }`)
@@ -34,13 +29,13 @@ module.exports = async function (cmd) {
   let hour = new Date().getHours()
   let minute = new Date().getMinutes()
   let second = new Date().getSeconds()
-  let date = `${ year }${ month < 10 ? `0${ month }` : month }${ day < 10 ? `0${ day }` : day }${ hour < 10 ? `0${ hour }` : hour }${ minute < 10 ? `0${ minute }` : minute }${ second < 10 ? `0${ second }` : second }`
+  const date = `${ year }${ month < 10 ? `0${ month }` : month }${ day < 10 ? `0${ day }` : day }${ hour < 10 ? `0${ hour }` : hour }${ minute < 10 ? `0${ minute }` : minute }${ second < 10 ? `0${ second }` : second }`
 
   // 压缩打包后的文件夹
   await tools.file.archiveFile(date)
 
   // 连接服务器
-  let sshGroup = new tools.SSHGroup(tools.deployConfig[env]['servers'])
+  let sshGroup = new tools.SSHGroup(deployEnv['servers'])
   await sshGroup.connect()
 
   // scp 将打包后的压缩包上传到服务器指定路径

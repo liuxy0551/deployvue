@@ -7,13 +7,7 @@ module.exports = async function (cmd) {
   tools.deployConfig.checkDeployConfigExist()
 
   // 检查配置文件中的部署环境 - 默认production环境
-  let env = cmd.env || 'production'
-  let deployEnv = tools.deployConfig[env]
-  if (!deployEnv) {
-    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue build -e staging or deployvue build`))
-    shell.exit(1) // 退出程序
-    return
-  }
+  let deployEnv = tools.deployConfig.checkEnv(cmd, 'build')
 
   // 安装依赖和打包命令集
   const installCommands = deployEnv.installCommands || []
@@ -21,21 +15,21 @@ module.exports = async function (cmd) {
 
   // 依次执行安装依赖命令
   if (installCommands.length) {
-    console.log(`==================== install dependencies ====================\n`)
+    // console.log(`\n==================== install dependencies ====================\n`)
     for (let command of installCommands) {
-      console.log(`+ ${ command }`)
+      console.log(`\n+ ${ command }`)
       if (shell.exec(`${ command }`).code !== 0) {
         shell.echo(`Run: ${ command } Error`)
         shell.exit(1)
         return
       }
-      console.log(chalk.cyan(`DONE  ${ command } complete\n`))
+      console.log(chalk.cyan(`\nDONE  ${ command } complete`))
     }
-    console.log(`==================== install complete ====================\n`)
+    // console.log(`==================== install complete ====================`)
   }
 
   // 依次执行打包命令
-  console.log(`==================== start ====================\n`)
+  console.log(`\n==================== start ====================\n`)
   for (let command of buildCommands) {
     console.log(`+ ${ command }`)
     if (shell.exec(`${ command }`).code !== 0) {
@@ -43,7 +37,7 @@ module.exports = async function (cmd) {
       shell.exit(1)
       return
     }
-    // console.log(chalk.green(`DONE  ${ command } complete\n`))
+    console.log(chalk.cyan(`DONE  ${ command } complete`))
   }
   // console.log(`==================== build complete ====================\n\n`)
 }
