@@ -24,11 +24,17 @@ module.exports = async function (cmd) {
     return
   }
 
+
   // console.log(`==================== start deploy ====================\n`)
 
-  // 打包时间戳
-  const date = `${ new Date().getFullYear() }${ new Date().getMonth() + 1 }${ new Date().getDate() }${ new Date().getHours() }${ new Date().getMinutes() }${ new Date().getSeconds() }`
-  console.log(1, date)
+  // 打包带上时间和时间戳
+  let year = new Date().getFullYear()
+  let month = new Date().getMonth() + 1
+  let day = new Date().getDate()
+  let hour = new Date().getHours()
+  let minute = new Date().getMinutes()
+  let second = new Date().getSeconds()
+  let date = `${ year }${ month < 10 ? `0${ month }` : month }${ day < 10 ? `0${ day }` : day }${ hour < 10 ? `0${ hour }` : hour }${ minute < 10 ? `0${ minute }` : minute }${ second < 10 ? `0${ second }` : second }`
 
   // 压缩打包后的文件夹
   await tools.file.archiveFile(date)
@@ -43,6 +49,7 @@ module.exports = async function (cmd) {
   // 在服务器端解压压缩包
   await tools.file.unArchiveFile(sshGroup.connects, date)
 
+  console.log(chalk.green('\nDONE  deploy success\n'))
   console.log(`==================== complete, enjoy ====================\n`)
-  shell.exit(0)
+  shell.exit(0) // 部署完成，结束程序
 }

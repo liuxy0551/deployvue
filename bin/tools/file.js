@@ -41,9 +41,7 @@ module.exports = {
   async putFiles (connects, env, date) {
     // 在服务器上创建对应的部署目录
     for (let ssh of connects) {
-      console.log(`+ mkdir ${ deployConfig.deployTo }`)
-      let res = await ssh.execCommand(`mkdir ${ deployConfig.deployTo }`)
-      console.log(res.stderr ? chalk.yellow(`${ res.stderr } \n`) : chalk.cyan(`mkdir ${ deployConfig.deployTo } success\n`))
+      await ssh.execCommand(`mkdir -p ${ deployConfig.deployTo }/${ deployConfig.archiveRootDir }-history`)
     }
 
     return new Promise((resolve, reject) => {
@@ -53,14 +51,14 @@ module.exports = {
   
       for (let server of deployConfig[env].servers) {
         let command = `scp ${ localFile } ${ server.username }@${ server.host }:${ deployTo }`
-        console.log(`+ ${ command }`)
+        console.log(`\n+ ${ command }`)
         if (shell.exec(`${ command }`).code !== 0) {
           shell.echo(`Run: ${ command } Error`)
           shell.exit(1)
           reject()
           return
         }
-        console.log(chalk.cyan(`DONE  ${ command } complete\n`))
+        console.log(chalk.cyan(`DONE  ${ command } complete`))
       }
       resolve()
     })
@@ -70,10 +68,10 @@ module.exports = {
   async unArchiveFile (connects, date) {
     let unArchiveCommand = `tar xvf ${ deployConfig.archiveRootDir }-${ date }.tar`
     for (let ssh of connects) {
-      console.log(`+ ${ unArchiveCommand }`)
-      await ssh.execCommand(`cd ${ deployConfig.deployTo }; ${ unArchiveCommand }`)
-      // await ssh.execCommand(`cd ${ deployConfig.deployTo }; ${ unArchiveCommand }; rm -rf ${ deployConfig.archiveRootDir }-${ date }.tar`)
-      console.log(chalk.cyan(`unArchive file success.\n`))
+      console.log(`\n+ ${ unArchiveCommand }`)
+      await ssh.execCommand(`cd ${ deployConfig.deployTo }; ${ unArchiveCommand }; mv ${ deployConfig.archiveRootDir }-${ date }.tar ${ deployConfig.archiveRootDir }-history`)
+      await ssh.execCommand(`cd ${ deployConfig.deployTo }/${ deployConfig.archiveRootDir }-history; ls -t | awk 'NR > ${ deployConfig.keepReleases } {print "rm -rf "$0}' | sh`)
+      console.log(chalk.cyan(`unArchive file success`))
     }
   }
 }

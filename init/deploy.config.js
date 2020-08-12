@@ -1,6 +1,5 @@
 module.exports = {
   default: {
-    projectName: 'my-vue', // 项目名称
     deployTo: '/mnt/projects/my-vue', // 部署到服务器的路径
     repositoryUrl: 'git:// or http://git...', // 代码仓库git地址
     keepReleases: 5, // 支持回退几次版本

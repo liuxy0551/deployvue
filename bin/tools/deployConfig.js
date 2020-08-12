@@ -16,8 +16,8 @@ module.exports = {
   },
   // 部署到该路径
   deployTo: deployConfig['default']['deployTo'],
-  // 服务器端保留的历史版本数，可用于回滚的版本数
-  keepReleases: deployConfig['default']['keepReleases'],
+  // 服务器端保留的历史版本数，可用于回滚的版本数，默认5次
+  keepReleases: deployConfig['default']['keepReleases'] || 5,
   // 打包后的文件夹，默认dist
   archiveRootDir: deployConfig['default']['archive']['rootDir'] || 'dist',
   // 测试服配置项

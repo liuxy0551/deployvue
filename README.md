@@ -30,6 +30,9 @@ $ deployvue build -e staging / deployvue build
 # 部署到指定环境的服务器
 $ deployvue deploy -e staging / deployvue deploy
 
+# 回滚到上一次版本
+$ deployvue rollback -e staging / deployvue rollback
+
 # 清理本地打包临时文件
 $ deployvue clean
 ```

@@ -10,41 +10,24 @@ module.exports = async function (cmd) {
   let env = cmd.env || 'production'
   let deployEnv = tools.deployConfig[env]
   if (!deployEnv) {
-    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue build -e staging or deployvue build`))
+    console.log(chalk.red(`Please ensure your deploy env is effective. eg: deployvue rollback -e staging or deployvue rollback`))
     shell.exit(1) // 退出程序
     return
   }
 
-  return
-  // 安装依赖和打包命令集
-  const installCommands = deployEnv.installCommands || []
-  const buildCommands = deployEnv.buildCommands || ['npm run build']
+  // 连接服务器
+  let sshGroup = new tools.SSHGroup(tools.deployConfig[env]['servers'])
+  await sshGroup.connect()
 
-  // 依次执行安装依赖命令
-  if (installCommands.length) {
-    console.log(`==================== install dependencies ====================\n`)
-    for (let command of installCommands) {
-      console.log(`+ ${ command }`)
-      if (shell.exec(`${ command }`).code !== 0) {
-        shell.echo(`Run: ${ command } Error`)
-        shell.exit(1)
-        return
-      }
-      console.log(chalk.cyan(`DONE  ${ command } complete\n`))
-    }
-    console.log(`==================== install complete ====================\n`)
-  }
+  for (let ssh of sshGroup.connects) {
+    await ssh.execCommand(`cd ${ tools.deployConfig.deployTo }/${ tools.deployConfig.archiveRootDir }-history; ls`).then(res => {
+      console.log(res)
 
-  // 依次执行打包命令
-  console.log(`==================== start ====================\n`)
-  for (let command of buildCommands) {
-    console.log(`+ ${ command }`)
-    if (shell.exec(`${ command }`).code !== 0) {
-      shell.echo(`Run: ${ command } Error`)
-      shell.exit(1)
-      return
-    }
-    // console.log(chalk.green(`DONE  ${ command } complete\n`))
+      // let list = res.stdout.split('\n').filter(i => i.includes(tools.deployConfig.archiveRootDir))
+      // let timeList = list.map(i => i.split('-')[2].split('.tar')[0])
+      // console.log(timeList.sort()[timeList.length - 2])
+      // console.log(list.filter(i => i.includes(Math.max(...timeList))))
+      // let time = ''
+    })
   }
-  // console.log(`==================== build complete ====================\n\n`)
 }
