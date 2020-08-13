@@ -1,16 +1,16 @@
-# deployvue
+# deployvue [![npm](https://img.shields.io/npm/v/deployvue.svg?style=flat-square)](https://www.npmjs.com/package/deployvue)
 
 deploy vue project —— 自动化部署<br><br>
 
-### 部署基本流程介绍
+### deployvue 部署流程
 
 1、执行 build 命令  
-2、压缩打包后的文件夹  
-3、ssh 连接服务器，创建部署目录  
+2、自动压缩打包后的文件夹  
+3、连接服务器，创建部署目录及备份目录（用于回退版本）  
 4、scp 将打包后的压缩包上传到服务器指定路径  
-5、利用已有的 ssh 连接，远程解压压缩包  
+5、利用已有的服务器连接，在服务器端解压压缩包  
 6、删除本地的打包文件及压缩包，部署完成  
-
+**7、支持回退版本**
 
 ### 安装
 
@@ -55,4 +55,6 @@ $ deployvue rollback -e staging / deployvue rollback
 
 # 清理本地打包临时文件
 $ deployvue clean
+
+deployvue build 等同于 deployvue build -e product
 ```

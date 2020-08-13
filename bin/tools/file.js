@@ -69,7 +69,9 @@ module.exports = {
     let unArchiveCommand = `tar xvf ${ deployConfig.archiveRootDir }-${ date }.tar`
     for (let ssh of connects) {
       console.log(`\n+ ${ unArchiveCommand }`)
+      // 把压缩包 move 到备份文件夹
       await ssh.execCommand(`cd ${ deployConfig.deployTo }; ${ unArchiveCommand }; mv ${ deployConfig.archiveRootDir }-${ date }.tar ${ deployConfig.archiveRootDir }-history`)
+      // 仅保留特定数量的压缩包文件 - 保留文件夹下最新的特定数量文件
       await ssh.execCommand(`cd ${ deployConfig.deployTo }/${ deployConfig.archiveRootDir }-history; ls -t | awk 'NR > ${ deployConfig.keepReleases + 1 } {print "rm -rf "$0}' | sh`)
       console.log(chalk.cyan(`unArchive file success`))
     }

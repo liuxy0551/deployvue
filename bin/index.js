@@ -12,7 +12,7 @@ program.command('build').description('build code').option('-e, --env <env>', 'en
 // deploy
 program.command('deploy').description('deploy project').option('-e, --env <env>', 'environment', '').action(require('./actions/deploy'))
 // clean
-program.command('clean').description('clean build file').option('-e, --env <env>', 'environment', '').action(require('./actions/clean'))
+program.command('clean').description('clean build file').action(require('./actions/clean'))
 // rollback
 program.command('rollback').description('project rollback deploy').option('-e, --env <env>', 'environment', '').action(require('./actions/rollback'))
 
