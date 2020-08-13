@@ -1,5 +1,6 @@
 # deployvue
 
+deploy vue project —— 自动化部署<br><br>
 
 ### 部署基本流程介绍
 
@@ -15,6 +16,25 @@
 
 ```
 $ npm i deployvue -g
+```
+
+
+### 使用
+
+1、参考 <a href="https://liuxianyu.cn/article/cent-os-base.html#%E4%BA%8C-%E6%B7%BB%E5%8A%A0%E6%9C%AC%E6%9C%BA%E7%9A%84-ssh-%E5%85%AC%E9%92%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_black">添加本机的 SSH 公钥到服务器</a> 进行本机与服务器连接的准备工作；
+
+2、执行 `deployvue init`，在生成的 `deploy.config.js` 中进行自定义设置；
+
+3、在 `package.json` 中新增 `deploy` 相关命令，即可使用 `npm run deploy` 或 `npm run deploy:staging` 进行正式环境或测试环境部署
+```
+// package.json
+
+"scripts": {
+  "build": "vue-cli-service build",
+  "build:staging": "vue-cli-service build --mode staging",
+  "deploy": "deployvue build && deployvue deploy && deployvue clean",
+  "deploy:staging": "deployvue build -e staging && deployvue deploy -e staging && deployvue clean"
+}
 ```
 
 ```
@@ -35,15 +55,4 @@ $ deployvue rollback -e staging / deployvue rollback
 
 # 清理本地打包临时文件
 $ deployvue clean
-```
-
-
-### 建议
-执行 `deployvue init`，在 `package.json` 中新增一条命令，即可使用 `npm run deploy` 进行部署
-```
-// package.json
-
-"scripts": {
-  "deploy": "deployvue build && deployvue deploy && deployvue clean"
-}
 ```

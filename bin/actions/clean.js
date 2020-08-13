@@ -7,7 +7,6 @@ module.exports = async function () {
   tools.deployConfig.checkDeployConfigExist()
   
   // 清理本地打包临时文件
-  console.log(`rm -rf ${ tools.deployConfig.archiveRootDir }${ tools.deployConfig.cleanRange }`)
   if (shell.exec(`rm -rf ${ tools.deployConfig.archiveRootDir }${ tools.deployConfig.cleanRange }`).code !== 0) {
     shell.echo(`Clean Error`)
     shell.exit(1)

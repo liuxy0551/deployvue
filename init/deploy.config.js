@@ -19,27 +19,25 @@ module.exports = {
   },
   // 测试环境
   staging: {
-    // 需要部署的服务器列表
+    // 需要部署的测试环境服务器列表
     servers: [
       {
         host: '47.99.64.142',
         username: 'deploy'
       }
     ],
-    branch: 'develop', // 分支名
     installCommands: [], // 安装依赖命令集，默认为 []
     buildCommands: ['npm run build:staging'] // 打包命令集，默认为 ['npm run build']
   },
   // 正式环境
   production: {
-    // 需要部署的服务器列表
+    // 需要部署的正式环境服务器列表
     servers: [
       {
         host: '47.99.64.142',
         username: 'deploy'
       }
     ],
-    branch: 'master', // 分支名
     installCommands: [], // 安装依赖命令集，默认为 []
     buildCommands: ['npm run build'] // 打包命令集，默认为 ['npm run build']
   }
