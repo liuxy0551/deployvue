@@ -11,7 +11,7 @@ module.exports = async function () {
         if (err) {
           throw err
         }
-        console.log(chalk.green(`DONE  init success`))
+        console.log(chalk.bgGreen(`DONE`), chalk.green(`init success`))
       })
     })
   } else {

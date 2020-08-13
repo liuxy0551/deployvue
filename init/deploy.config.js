@@ -1,16 +1,21 @@
+/*
+ * 自动化部署 deploy vue project
+ * https://github.com/liuxy0551/deployvue#readme
+ */
+
 module.exports = {
   default: {
     deployTo: '/mnt/projects/my-vue', // 部署到服务器的路径
-    repositoryUrl: 'git:// or http://git...', // 代码仓库git地址
     keepReleases: 5, // 支持回退几次版本
     archive: {
-      rootDir: 'docs', // 打包后的文件夹名，默认dist
-      only: ['*']
+      rootDir: 'dist', // 打包后的文件夹名，默认dist
+      only: ['*'] // 备用参数
     },
-    shared: {
+    shared: { // 备用参数
       dirs: ['node_modules'],
       files: []
-    }
+    },
+    cleanRange: '*' // 删除打包后临时文件的范围，默认值为 '*'，可选值为 '*' 和 '-*'，前者删除 rootDir 开头的压缩包和打包文件夹，后者删除打包的压缩包
   },
   // 测试环境
   staging: {

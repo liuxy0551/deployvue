@@ -9,7 +9,7 @@ module.exports = {
   // 项目中是否存在deploy.config.js
   checkDeployConfigExist: function () {
     if (!exist) {
-      console.log(chalk.red(`You are using deployvue without deploy.config.js. Please init. eg: deployvue init\n`))
+      console.log(chalk.red(`You are using deployvue without deploy.config.js. Please init. eg: `), chalk.bgCyan(`deployvue init`))
       shell.exit(1) // 退出程序
       return
     }
@@ -19,7 +19,7 @@ module.exports = {
     let env = cmd.env || 'production'
     let deployEnv = deployConfig[env]
     if (!deployEnv) {
-      console.log(chalk.red(`Please ensure your deploy.config.js env is effective. eg: deployvue ${ order } -e staging / deployvue ${ order } (-e production)`))
+      console.log(chalk.red(`Please ensure your deploy.config.js env is effective. eg: `), chalk.bgCyan(`deployvue ${ order } -e staging / deployvue ${ order } (-e production)`))
       shell.exit(1) // 退出程序
       return
     }
@@ -34,5 +34,7 @@ module.exports = {
   // 测试服配置项
   staging: deployConfig.staging,
   // 正式服配置项
-  production: deployConfig.production
+  production: deployConfig.production,
+  // 删除打包后临时文件的范围
+  cleanRange: deployConfig['default']['cleanRange']
 }

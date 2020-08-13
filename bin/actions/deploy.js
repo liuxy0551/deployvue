@@ -9,12 +9,12 @@ module.exports = async function (cmd) {
 
   // 检查配置文件中的部署环境 - 默认production环境
   let env = cmd.env || 'production'
-  let deployEnv = tools.deployConfig.checkEnv(cmd, 'staging')
+  let deployEnv = tools.deployConfig.checkEnv(cmd, 'deploy')
 
   // 检查是否有打包后的文件夹
   let exist = fs.existsSync(`${ tools.deployConfig.archiveRootDir }`)
   if (!exist) {
-    console.log(chalk.red(`Please build first. eg: deployvue build -e staging or deployvue build`))
+    console.log(chalk.red(`The ${ tools.deployConfig.archiveRootDir } folder is not found, please build first. eg: `), chalk.bgCyan(`deployvue build -e staging or deployvue build`))
     shell.exit(1) // 退出程序
     return
   }
@@ -44,7 +44,7 @@ module.exports = async function (cmd) {
   // 在服务器端解压压缩包
   await tools.file.unArchiveFile(sshGroup.connects, date)
 
-  console.log(chalk.green('\nDONE  deploy success\n'))
+  console.log('\n', chalk.bgGreen(' DONE '), chalk.green('deploy success\n'))
   console.log(`==================== complete, enjoy ====================\n`)
   shell.exit(0) // 部署完成，结束程序
 }
