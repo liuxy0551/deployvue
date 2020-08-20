@@ -56,5 +56,5 @@ $ deployvue rollback -e staging / deployvue rollback
 # 清理本地打包临时文件
 $ deployvue clean
 
-deployvue build 等同于 deployvue build -e product
+deployvue build 等同于 deployvue build -e production
 ```
