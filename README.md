@@ -58,3 +58,5 @@ $ deployvue clean
 
 deployvue build 等同于 deployvue build -e production
 ```
+
+相关随笔：<a href="https://liuxianyu.cn/article/deploy-vue.html" target="_black">写一个 Vue 项目的自动化部署插件</a>
