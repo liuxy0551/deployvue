@@ -60,3 +60,28 @@ deployvue build 等同于 deployvue build -e production
 ```
 
 相关随笔：<a href="https://liuxianyu.cn/article/deploy-vue.html" target="_black">写一个 Vue 项目的自动化部署插件</a>
+
+
+### 项目文件结构
+
+```
+deployvue
+├─README.md
+├─package-lock.json
+├─package.json
+├─init
+|  └deploy.config.js
+├─bin
+|  ├─index.js
+|  ├─tools
+|  |   ├─SSHGroup.js
+|  |   ├─deployConfig.js
+|  |   ├─file.js
+|  |   └index.js
+|  ├─actions
+|  |    ├─build.js
+|  |    ├─clean.js
+|  |    ├─deploy.js
+|  |    ├─init.js
+|  |    └rollback.js
+```
