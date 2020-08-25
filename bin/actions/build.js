@@ -18,10 +18,9 @@ module.exports = async function (cmd) {
     // console.log(`\n==================== install dependencies ====================\n`)
     for (let command of installCommands) {
       console.log(`\n+ ${ command }`)
-      if (shell.exec(`${ command }`).code !== 0) {
+      if (shell.exec(`${ command }`, { silent: true }).code !== 0) {
         shell.echo(`Run: ${ command } Error`)
         shell.exit(1)
-        return
       }
       console.log(chalk.cyan(`\nDONE  ${ command } complete`))
     }
@@ -32,10 +31,9 @@ module.exports = async function (cmd) {
   console.log(`\n==================== start ====================\n`)
   for (let command of buildCommands) {
     console.log(`+ ${ command }`)
-    if (shell.exec(`${ command }`).code !== 0) {
+    if (shell.exec(`${ command }`, { silent: true }).code !== 0) {
       shell.echo(`Run: ${ command } Error`)
       shell.exit(1)
-      return
     }
     console.log(chalk.cyan(`DONE  ${ command } complete`))
   }

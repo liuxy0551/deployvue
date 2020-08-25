@@ -3,7 +3,8 @@ const chalk = require('chalk')
 const shell = require('shelljs')
 
 let exist = fs.existsSync(`${ process.cwd() }/deploy.config.js`)
-const deployConfig = require(exist ? `${ process.cwd() }/deploy.config.js` : `${ __dirname.split('bin/')[0] }/init/deploy.config.js`)
+// const deployConfig = require(exist ? `${ process.cwd() }/deploy.config.js` : `${ __dirname.split('bin/')[0] }/init/deploy.config.js`)
+const deployConfig = require(`${ process.cwd() }/deploy.config.js`)
 
 module.exports = {
   // 项目中是否存在deploy.config.js
@@ -11,7 +12,6 @@ module.exports = {
     if (!exist) {
       console.log(chalk.red(`You are using deployvue without deploy.config.js. Please init. eg: `), chalk.bgCyan(`deployvue init`))
       shell.exit(1) // 退出程序
-      return
     }
   },
   // 检查配置文件中的部署环境 - 默认production环境
@@ -21,7 +21,6 @@ module.exports = {
     if (!deployEnv) {
       console.log(chalk.red(`Please ensure your deploy.config.js env is effective. eg: `), chalk.bgCyan(`deployvue ${ order } -e staging / deployvue ${ order } (-e production)`))
       shell.exit(1) // 退出程序
-      return
     }
     return deployEnv
   },

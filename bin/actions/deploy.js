@@ -16,7 +16,6 @@ module.exports = async function (cmd) {
   if (!exist) {
     console.log(chalk.red(`The ${ tools.deployConfig.archiveRootDir } folder is not found, please build first. eg: `), chalk.bgCyan(`deployvue build -e staging or deployvue build`))
     shell.exit(1) // 退出程序
-    return
   }
 
 

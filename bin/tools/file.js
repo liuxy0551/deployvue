@@ -14,12 +14,12 @@ module.exports = {
       const archive = archiver('tar', {
         zlib: { level: 9 } // 压缩级别
       })
-  
+
       // 通过管道方法将输出流存档到文件
       archive.pipe(output)
       // 把打包后的文件夹压缩
       archive.directory(`${ process.cwd() }/${ deployConfig.archiveRootDir }`, false)
-  
+
       output.on('close', err => {
         if (err) {
           reject(err)
@@ -32,7 +32,7 @@ module.exports = {
         reject(err)
         throw err
       })
-  
+
       // 完成归档
       archive.finalize()
     })
@@ -48,7 +48,7 @@ module.exports = {
       // 通过scp命令往服务器上推压缩包，文件 scp，目录 scp -r
       let localFile = `${ deployConfig.archiveRootDir }-${ date }.tar`
       let deployTo = `${ deployConfig.deployTo }`
-  
+
       for (let server of deployConfig[env].servers) {
         let command = `scp ${ localFile } ${ server.username }@${ server.host }:${ deployTo }`
         console.log(`\n+ ${ command }`)
@@ -56,7 +56,6 @@ module.exports = {
           shell.echo(`Run: ${ command } Error`)
           shell.exit(1)
           reject()
-          return
         }
         console.log(chalk.cyan(`DONE  ${ command } complete`))
       }
