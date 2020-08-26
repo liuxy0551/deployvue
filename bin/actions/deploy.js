@@ -44,6 +44,6 @@ module.exports = async function (cmd) {
   await tools.file.unArchiveFile(sshGroup.connects, date)
 
   console.log('\n', chalk.bgGreen(' DONE '), chalk.green('deploy success\n'))
-  console.log(`==================== complete, enjoy ====================\n`)
+  console.log(`==================== complete, enjoy ====================`)
   shell.exit(0) // 部署完成，结束程序
 }

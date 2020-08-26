@@ -28,7 +28,7 @@ module.exports = async function (cmd) {
   }
 
   // 依次执行打包命令
-  console.log(`\n==================== start ====================\n`)
+  console.log(`==================== start ====================\n`)
   for (let command of buildCommands) {
     console.log(`+ ${ command }`)
     if (shell.exec(`${ command }`, { silent: true }).code !== 0) {
