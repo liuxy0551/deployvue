@@ -3,8 +3,7 @@ const chalk = require('chalk')
 const shell = require('shelljs')
 
 let exist = fs.existsSync(`${ process.cwd() }/deploy.config.js`)
-// const deployConfig = require(exist ? `${ process.cwd() }/deploy.config.js` : `${ __dirname.split('bin/')[0] }/init/deploy.config.js`)
-const deployConfig = require(`${ process.cwd() }/deploy.config.js`)
+const deployConfig = require(exist ? `${ process.cwd() }/deploy.config.js` : `${ __dirname.split('bin/')[0] }/init/deploy.config.js`)
 
 module.exports = {
   // 项目中是否存在deploy.config.js
