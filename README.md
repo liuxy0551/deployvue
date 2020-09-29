@@ -15,7 +15,7 @@ deploy vue project —— 自动化部署<br><br>
 ### 安装
 
 ```
-$ npm i deployvue -g
+$ npm i deployvue -D
 ```
 
 
