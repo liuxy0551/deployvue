@@ -1,4 +1,4 @@
-# deployvue [![npm](https://img.shields.io/npm/v/deployvue.svg?style=flat-square)](https://www.npmjs.com/package/deployvue)
+# deployvue [![npm](https://img.shields.io/npm/v/deployvue.svg?style=flat-square)](https://www.npmjs.com/package/deployvue) [![download](https://badgen.net/npm/dt/deployvue)](https://npmjs.org/package/deployvue)
 
 deploy vue project —— 自动化部署<br><br>
 
